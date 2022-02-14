@@ -21,8 +21,8 @@ try:
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 except Exception:
     st.write("Error loading cascade classifiers")
-
-class VideoTransformer(VideoTransformerBase):
+RTC_CONFIGURATION = RTCConfiguration({"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]})
+class Faceemotion(VideoTransformerBase):
     def transform(self, frame):
         img = frame.to_ndarray(format="bgr24")
 
@@ -53,8 +53,7 @@ def main():
     st.title("Real Time Face Emotion Detection Application")
     st.header("Webcam Live Feed")
     st.write("Click on start to use webcam and detect your face emotion")
-    webrtc_streamer(key="example", video_processor_factory=VideoTransformer)
-
+    webrtc_streamer(key="example", mode=WebRtcMode.SENDRECV, rtc_configuration=RTC_CONFIGURATION, video_processor_factory=Faceemotion)
 
 if __name__ == "__main__":
     main()
