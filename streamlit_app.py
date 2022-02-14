@@ -48,11 +48,10 @@ class Faceemotion(VideoTransformerBase):
 
         return img
 
-def main():
+
     # Face Analysis Application #
     st.title("Real Time Face Emotion Detection Application")
     st.write("Click on start to use webcam and detect your face emotion. [Github repo](https://github.com/Charim-Cibersegurata/CarimSaturdaysAI/)")
-    webrtc_streamer(key="example", mode=WebRtcMode.SENDRECV, video_processor_factory=Faceemotion)
-if __name__ == "__main__":
-    main()
+    webrtc_streamer(key="example", mode=WebRtcMode.SENDRECV, rtc_configuration=RTC_CONFIGURATION, video_processor_factory=Faceemotion)
+
 
