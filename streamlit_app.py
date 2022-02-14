@@ -21,7 +21,7 @@ try:
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 except Exception:
     st.write("Error loading cascade classifiers")
-RTC_CONFIGURATION = RTCConfiguration({"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]})
+RTC_CONFIGURATION = RTCConfiguration({"iceServers": [{"urls": ["stun:stun1.l.google.com:19302"]}]})
 class Faceemotion(VideoTransformerBase):
     def transform(self, frame):
         img = frame.to_ndarray(format="bgr24")
