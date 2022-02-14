@@ -53,7 +53,7 @@ def main():
     st.title("Real Time Face Emotion Detection Application")
     st.header("Webcam Live Feed")
     st.write("Click on start to use webcam and detect your face emotion")
-    webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
+    webrtc_streamer(key="example", video_processor_factory=VideoTransformer)
 
 
 if __name__ == "__main__":
