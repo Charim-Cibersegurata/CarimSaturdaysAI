@@ -11,14 +11,11 @@ from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
 # load model
 emotion_dict = {0:'angry', 1 :'disgusted', 2: 'scared', 3:'happy', 4: 'sad', 5: 'surprised', 6: 'neutral'}
-# load json and create model
-json_file = open('emotion_model1.json', 'r')
-loaded_model_json = json_file.read()
-json_file.close()
-classifier = model_from_json(loaded_model_json)
 
+emotion_model_path = '_mini_XCEPTION.102-0.66.hdf5'
+#emotion_model_path = 'emotion_detection_model_state.pth'
 # load weights into new model
-classifier.load_weights("emotion_model1.h5")
+emotion_classifier = load_model(emotion_model_path, compile=False)
 
 #load face
 try:
@@ -43,7 +40,7 @@ class VideoTransformer(VideoTransformerBase):
                 roi = roi_gray.astype('float') / 255.0
                 roi = img_to_array(roi)
                 roi = np.expand_dims(roi, axis=0)
-                prediction = classifier.predict(roi)[0]
+                prediction = emotion_classifier.predict(roi)[0]
                 maxindex = int(np.argmax(prediction))
                 finalout = emotion_dict[maxindex]
                 output = str(finalout)
